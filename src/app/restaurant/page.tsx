@@ -48,13 +48,27 @@ export default function RestaurantPage() {
     <>
       <Navbar />
 
-      <section className="bg-[#1a2744] text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Restaurant</h1>
-          <div className="w-16 h-1 bg-[#c9a96e] mx-auto mb-4 rounded" />
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+      <section className="relative bg-[#1a2744] text-white overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a2744] via-[#243556] to-[#17213a] opacity-95" />
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute -top-20 -right-20 w-96 h-96 bg-[#c9a96e] rounded-full blur-3xl" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 pt-16 pb-16 md:pt-20 md:pb-20">
+          <p className="text-[#c9a96e] font-medium tracking-[0.25em] uppercase text-xs mb-3">Restaurant</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl leading-tight">Our Restaurant</h1>
+          <p className="text-gray-300 text-lg max-w-2xl leading-relaxed">
             Savour delicious home-style food at our in-house restaurant with both vegetarian and non-vegetarian options.
           </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <span className="inline-flex items-center gap-1.5 bg-white/10 text-white text-sm px-3 py-1.5 rounded-full">
+              <svg className="w-4 h-4 text-[#c9a96e]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+              Veg & Non-veg
+            </span>
+            <span className="inline-flex items-center gap-1.5 bg-white/10 text-white text-sm px-3 py-1.5 rounded-full">
+              <svg className="w-4 h-4 text-[#c9a96e]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+              Room Dining Available
+            </span>
+          </div>
         </div>
       </section>
 
