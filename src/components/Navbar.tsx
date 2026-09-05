@@ -47,6 +47,7 @@ export default function Navbar() {
     <>
       <div className="bg-[#1a2744] text-white text-sm py-2 hidden md:block">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
+          <span className="text-[#c9a96e] font-medium">Hotel Riyansh · Dumka Road, Hansdiha</span>
           <div className="flex items-center gap-6">
             <a href={getPhoneUrl(HOTEL_INFO.phone)} className="flex items-center gap-1 hover:text-[#c9a96e] transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
@@ -57,19 +58,18 @@ export default function Navbar() {
               WhatsApp Us
             </a>
           </div>
-          <span className="text-[#c9a96e] font-medium">Hansdiha, Jharkhand</span>
         </div>
       </div>
 
-      <nav className="bg-white shadow-md sticky top-0 z-50">
+      <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16 md:h-20">
-            <Link href="/" className="flex flex-col">
+            <Link href="/" className="flex flex-col leading-none">
               <span className="text-[#1a2744] font-bold text-xl md:text-2xl tracking-wide">HOTEL RIYANSH</span>
-              <span className="text-[#c9a96e] text-[10px] md:text-xs tracking-[0.2em] uppercase">Est. 2025</span>
+              <span className="text-[#c9a96e] text-[10px] md:text-xs tracking-[0.2em] uppercase mt-1">Hansdiha · Est. 2025</span>
             </Link>
 
-            <div className="hidden lg:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-8">
               {publicLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -83,35 +83,38 @@ export default function Navbar() {
               ))}
             </div>
 
-            <div className="hidden lg:flex items-center gap-3">
-              {user ? (
-                <>
-                  {user.role !== 'admin' && (
-                    <>
-                      <Link href="/account" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
-                        My Account
-                      </Link>
-                      <Link href="/my-bookings" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
-                        My Bookings
-                      </Link>
-                    </>
-                  )}
-                  <button onClick={handleLogout} className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link href="/login" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
-                    Login
-                  </Link>
-                  <Link href="/register" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
-                    Register
-                  </Link>
-                </>
-              )}
-              <Link href="/book" className="btn-gold text-sm !py-2 !px-4">
-                Book Now
+            <div className="hidden lg:flex items-center gap-4">
+              <div className="flex items-center gap-4 border-r border-gray-200 pr-4">
+                {user ? (
+                  <>
+                    {user.role !== 'admin' && (
+                      <>
+                        <Link href="/account" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
+                          My Account
+                        </Link>
+                        <Link href="/my-bookings" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
+                          My Bookings
+                        </Link>
+                      </>
+                    )}
+                    <button onClick={handleLogout} className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/login" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
+                      Login
+                    </Link>
+                    <Link href="/register" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
+                      Register
+                    </Link>
+                  </>
+                )}
+              </div>
+              <Link href="/book" className="inline-flex items-center gap-2 bg-[#1a2744] hover:bg-[#243556] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                Check Availability
               </Link>
             </div>
 
@@ -163,8 +166,8 @@ export default function Navbar() {
                   <Link href="/register" onClick={() => setIsOpen(false)} className="block py-2 text-sm font-medium text-gray-700">Register</Link>
                 </>
               )}
-              <Link href="/book" onClick={() => setIsOpen(false)} className="block btn-gold text-center text-sm mt-2">
-                Book Now
+              <Link href="/book" onClick={() => setIsOpen(false)} className="block text-center bg-[#1a2744] hover:bg-[#243556] text-white font-semibold py-2.5 rounded-lg text-sm mt-2">
+                Check Availability
               </Link>
               <div className="flex gap-2 mt-3">
                 <a href={getPhoneUrl(HOTEL_INFO.phone)} className="btn-primary text-sm flex-1 !py-2">

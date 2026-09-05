@@ -1,13 +1,14 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
-import BookingWidget from '@/components/BookingWidget';
-import AboutSection from '@/components/AboutSection';
+import BookDirectBanner from '@/components/BookDirectBanner';
+import StatsSection from '@/components/StatsSection';
 import FeaturedRooms from '@/components/FeaturedRooms';
 import FacilitiesSection from '@/components/FacilitiesSection';
 import RestaurantSection from '@/components/RestaurantSection';
-import WhyStaySection from '@/components/WhyStaySection';
+import ExperienceSection from '@/components/ExperienceSection';
 import LocationSection from '@/components/LocationSection';
+import AboutSection from '@/components/AboutSection';
 import ContactCTA from '@/components/ContactCTA';
 
 export default function Home() {
@@ -15,13 +16,14 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
-      <BookingWidget />
-      <AboutSection />
+      <BookDirectBanner />
+      <StatsSection />
       <FeaturedRooms />
       <FacilitiesSection />
       <RestaurantSection />
-      <WhyStaySection />
+      <ExperienceSection />
       <LocationSection />
+      <AboutSection />
       <ContactCTA />
       <Footer />
     </>

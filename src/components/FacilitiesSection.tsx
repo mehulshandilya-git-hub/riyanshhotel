@@ -75,16 +75,15 @@ const facilities = [
 
 export default function FacilitiesSection() {
   return (
-    <section className="bg-[#faf8f4] py-20">
+    <section className="bg-white py-20">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
-          <p className="text-[#c9a96e] font-medium tracking-[0.15em] uppercase text-sm mb-3">
+          <p className="text-[#c9a96e] font-medium tracking-[0.25em] uppercase text-xs mb-3">
             Amenities
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-[#1a2744] mb-4">
-            Hotel Facilities
+            Everything you need for a restful stay
           </h2>
-          <div className="w-16 h-1 bg-[#c9a96e] mx-auto" />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
