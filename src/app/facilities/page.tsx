@@ -83,18 +83,18 @@ export default function FacilitiesPage() {
     <>
       <Navbar />
 
-      <section className="relative bg-[#1a2744] text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1a2744] via-[#243556] to-[#17213a] opacity-95" />
-        <div className="absolute inset-0 opacity-10">
+      <section className="relative bg-[#0a0907] text-white overflow-hidden border-b border-[#17130c]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0907] via-[#100e0b] to-[#080705]" />
+        <div className="absolute inset-0 opacity-[0.09]">
           <div className="absolute -top-20 -right-20 w-96 h-96 bg-[#c9a96e] rounded-full blur-3xl" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 pt-16 pb-16 md:pt-20 md:pb-20">
-          <p className="text-[#c9a96e] font-medium tracking-[0.25em] uppercase text-xs mb-3">Facilities</p>
-          <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl leading-tight">Our Facilities</h1>
-          <p className="text-gray-300 text-lg max-w-2xl leading-relaxed">
+        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-20 md:pt-28 md:pb-28">
+          <p className="eyebrow mb-4">Facilities</p>
+          <h1 className="font-display text-4xl md:text-6xl font-semibold mb-5 max-w-3xl leading-[1.1]">Our Facilities</h1>
+          <p className="text-[#c6bda7] text-lg max-w-2xl leading-relaxed">
             Everything you need for a comfortable and hassle-free stay at Hotel Riyansh.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-3">
             <span className="inline-flex items-center gap-1.5 bg-white/10 text-white text-sm px-3 py-1.5 rounded-full">
               <svg className="w-4 h-4 text-[#c9a96e]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
               Parking · Wi-Fi · Room Service
@@ -107,31 +107,31 @@ export default function FacilitiesPage() {
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="py-16 md:py-24 bg-[#0a0907]">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {facilities.map((facility, idx) => (
+            {facilities.map((facility) => (
               <div
                 key={facility.name}
-                className={`p-6 rounded-xl border transition-shadow hover:shadow-lg ${
-                  idx % 2 === 0 ? 'bg-white border-gray-100' : 'bg-[#faf8f4] border-transparent'
-                }`}
+                className="bg-[#14120e] border border-[#221d14] rounded-xl p-6 hover:border-[#3a3427] hover:shadow-gold transition-all"
               >
-                <div className="w-14 h-14 bg-[#1a2744] text-[#c9a96e] rounded-full flex items-center justify-center mb-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-[#211b13] to-[#17140f] text-[#c9a96e] rounded-full flex items-center justify-center mb-4 border border-[#312b1e]">
                   {facility.icon}
                 </div>
-                <h3 className="text-lg font-bold text-[#1a2744] mb-2">{facility.name}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{facility.description}</p>
+                <h3 className="font-display text-lg text-[#f2ecdf] mb-2">{facility.name}</h3>
+                <p className="text-sm text-[#8f8672] leading-relaxed">{facility.description}</p>
               </div>
             ))}
           </div>
 
-          <div className="bg-[#1a2744] text-white rounded-2xl p-8 text-center max-w-2xl mx-auto">
-            <svg className="w-8 h-8 text-[#c9a96e] mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            <h3 className="text-xl font-bold mb-2">All facilities are available for hotel guests</h3>
-            <p className="text-gray-300 text-sm">
+          <div className="bg-gradient-to-br from-[#211b13] via-[#17140f] to-[#0d0b08] border border-[#312b1e] rounded-2xl p-8 text-center max-w-2xl mx-auto">
+            <div className="w-10 h-10 bg-gradient-to-br from-[#dcbd85] to-[#c9a96e] rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-5 h-5 text-[#120f0a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 className="font-display text-xl text-[#f2ecdf] mb-2">All facilities are available for hotel guests</h3>
+            <p className="text-[#8f8672] text-sm">
               Every amenity listed above is included with your stay. No hidden charges.
             </p>
           </div>

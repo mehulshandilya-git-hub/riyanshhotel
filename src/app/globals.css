@@ -17,6 +17,8 @@
   --color-cream: #f2ecdf;
   --color-sand: #c6bda7;
   --color-mute: #8f8672;
+
+  --shadow-gold: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(201, 169, 110, 0.22);
 }
 
 :root {

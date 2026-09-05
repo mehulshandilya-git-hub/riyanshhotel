@@ -51,23 +51,23 @@ export default function AdminCustomersPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <p className="text-gray-500">Loading customers...</p>
+      <div className="min-h-screen bg-[#0a0907] flex items-center justify-center">
+        <p className="text-mute">Loading customers...</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <nav className="bg-blue-900 text-white px-6 py-4">
+    <div className="min-h-screen bg-[#0a0907]">
+      <nav className="bg-gradient-to-r from-[#14120e] to-[#0d0b08] border-b border-[#221d14] px-6 py-4 text-white">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <h1 className="text-xl font-bold">Customer Management</h1>
+          <h1 className="font-display text-xl font-semibold text-gold">Customer Management</h1>
           <div className="flex items-center gap-4">
-            <Link href="/admin" className="text-sm hover:text-blue-200">Dashboard</Link>
-            <Link href="/admin/bookings" className="text-sm hover:text-blue-200">Bookings</Link>
-            <Link href="/admin/rooms" className="text-sm hover:text-blue-200">Rooms</Link>
+            <Link href="/admin" className="text-sm text-sand hover:text-gold transition-colors">Dashboard</Link>
+            <Link href="/admin/bookings" className="text-sm text-sand hover:text-gold transition-colors">Bookings</Link>
+            <Link href="/admin/rooms" className="text-sm text-sand hover:text-gold transition-colors">Rooms</Link>
             <button onClick={() => { localStorage.removeItem('hr_admin_user'); router.push('/admin/login') }}
-              className="text-sm bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-md transition-colors">Logout</button>
+              className="text-sm bg-[#4a211d] hover:bg-[#5a2b25] text-[#e07b6b] px-3 py-1.5 rounded-md transition-colors border border-[#6b2f27]">Logout</button>
           </div>
         </div>
       </nav>
@@ -79,34 +79,34 @@ export default function AdminCustomersPage() {
             placeholder="Search by name or email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-80"
+            className="w-full sm:w-80"
           />
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-gray-50 text-left">
-                  <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase">Name</th>
-                  <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase">Email</th>
-                  <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase">Phone</th>
-                  <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase">Member Since</th>
+                <tr className="bg-[#100e0b] text-left">
+                  <th className="px-6 py-3 text-xs font-medium text-mute uppercase">Name</th>
+                  <th className="px-6 py-3 text-xs font-medium text-mute uppercase">Email</th>
+                  <th className="px-6 py-3 text-xs font-medium text-mute uppercase">Phone</th>
+                  <th className="px-6 py-3 text-xs font-medium text-mute uppercase">Member Since</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-[#17130c]">
                 {filteredCustomers.map((customer) => (
-                  <tr key={customer.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 text-sm font-medium text-gray-800">{customer.name}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{customer.email}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{customer.phone || '-'}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{formatDate(customer.createdAt)}</td>
+                  <tr key={customer.id} className="hover:bg-[#100e0b]">
+                    <td className="px-6 py-4 text-sm font-medium text-cream">{customer.name}</td>
+                    <td className="px-6 py-4 text-sm text-sand">{customer.email}</td>
+                    <td className="px-6 py-4 text-sm text-sand">{customer.phone || '-'}</td>
+                    <td className="px-6 py-4 text-sm text-sand">{formatDate(customer.createdAt)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
             {filteredCustomers.length === 0 && (
-              <p className="text-center text-gray-500 py-8">No customers found.</p>
+              <p className="text-center text-mute py-8">No customers found.</p>
             )}
           </div>
         </div>

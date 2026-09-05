@@ -146,24 +146,24 @@ export default function AdminBookingsPage() {
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      pending: 'bg-yellow-100 text-yellow-800',
-      confirmed: 'bg-blue-100 text-blue-800',
-      checked_in: 'bg-green-100 text-green-800',
-      checked_out: 'bg-gray-100 text-gray-800',
-      cancelled: 'bg-red-100 text-red-800',
-      rejected: 'bg-red-100 text-red-800'
+      pending: 'bg-[#241d0d] text-[#e8cd97] border border-[#4a3a1c]',
+      confirmed: 'bg-[#0e2029] text-[#7cc3e0] border border-[#1e3d4d]',
+      checked_in: 'bg-[#12240f] text-[#7fd873] border border-[#2a4a22]',
+      checked_out: 'bg-[#17140f] text-[#c6bda7] border border-[#2a251d]',
+      cancelled: 'bg-[#2a100f] text-[#e07b6b] border border-[#4a211d]',
+      rejected: 'bg-[#2a100f] text-[#e07b6b] border border-[#4a211d]'
     }
-    return styles[status] || 'bg-gray-100 text-gray-800'
+    return styles[status] || 'bg-[#17140f] text-[#c6bda7] border border-[#2a251d]'
   }
 
   const getPaymentBadge = (status: string) => {
     const styles: Record<string, string> = {
-      pending: 'bg-yellow-100 text-yellow-800',
-      paid: 'bg-green-100 text-green-800',
-      failed: 'bg-red-100 text-red-800',
-      pay_at_hotel: 'bg-blue-100 text-blue-800'
+      pending: 'bg-[#241d0d] text-[#e8cd97] border border-[#4a3a1c]',
+      paid: 'bg-[#12240f] text-[#7fd873] border border-[#2a4a22]',
+      failed: 'bg-[#2a100f] text-[#e07b6b] border border-[#4a211d]',
+      pay_at_hotel: 'bg-[#0e2029] text-[#7cc3e0] border border-[#1e3d4d]'
     }
-    return styles[status] || 'bg-gray-100 text-gray-800'
+    return styles[status] || 'bg-[#17140f] text-[#c6bda7] border border-[#2a251d]'
   }
 
   const getActionButtons = (booking: Booking) => {
@@ -171,27 +171,27 @@ export default function AdminBookingsPage() {
     if (booking.bookingStatus === 'pending') {
       buttons.push(
         <button key="confirm" onClick={() => handleStatusUpdate(booking.id, 'confirmed')}
-          className="bg-green-600 text-white px-2 py-1 rounded text-xs hover:bg-green-700">Confirm</button>,
+          className="bg-[#1f5038] text-white px-2 py-1 rounded text-xs hover:bg-[#2a6b48]">Confirm</button>,
         <button key="reject" onClick={() => handleStatusUpdate(booking.id, 'rejected')}
-          className="bg-red-600 text-white px-2 py-1 rounded text-xs hover:bg-red-700">Reject</button>
+          className="bg-[#6b2f27] text-white px-2 py-1 rounded text-xs hover:bg-[#82392f]">Reject</button>
       )
     }
     if (booking.bookingStatus === 'confirmed') {
       buttons.push(
         <button key="checkin" onClick={() => handleStatusUpdate(booking.id, 'checked_in')}
-          className="bg-blue-600 text-white px-2 py-1 rounded text-xs hover:bg-blue-700">Check-in</button>
+          className="bg-[#1e3d4d] text-white px-2 py-1 rounded text-xs hover:bg-[#2a5468]">Check-in</button>
       )
     }
     if (booking.bookingStatus === 'checked_in') {
       buttons.push(
         <button key="checkout" onClick={() => handleStatusUpdate(booking.id, 'checked_out')}
-          className="bg-purple-600 text-white px-2 py-1 rounded text-xs hover:bg-purple-700">Check-out</button>
+          className="bg-[#4a3a1c] text-white px-2 py-1 rounded text-xs hover:bg-[#5d4a24]">Check-out</button>
       )
     }
     if (!['cancelled', 'rejected', 'checked_out'].includes(booking.bookingStatus)) {
       buttons.push(
         <button key="cancel" onClick={() => handleStatusUpdate(booking.id, 'cancelled')}
-          className="bg-red-100 text-red-700 px-2 py-1 rounded text-xs hover:bg-red-200">Cancel</button>
+          className="bg-[#2a100f] text-[#e07b6b] px-2 py-1 rounded text-xs hover:bg-[#3a1612]">Cancel</button>
       )
     }
     return buttons
@@ -199,22 +199,22 @@ export default function AdminBookingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <p className="text-gray-500">Loading bookings...</p>
+      <div className="min-h-screen bg-[#0a0907] flex items-center justify-center">
+        <p className="text-mute">Loading bookings...</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <nav className="bg-blue-900 text-white px-6 py-4">
+    <div className="min-h-screen bg-[#0a0907]">
+      <nav className="bg-gradient-to-r from-[#14120e] to-[#0d0b08] border-b border-[#221d14] px-6 py-4 text-white">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <h1 className="text-xl font-bold">Bookings Management</h1>
+          <h1 className="font-display text-xl font-semibold text-gold">Bookings Management</h1>
           <div className="flex items-center gap-4">
-            <Link href="/admin" className="text-sm hover:text-blue-200">Dashboard</Link>
-            <Link href="/admin/rooms" className="text-sm hover:text-blue-200">Rooms</Link>
+            <Link href="/admin" className="text-sm text-sand hover:text-gold transition-colors">Dashboard</Link>
+            <Link href="/admin/rooms" className="text-sm text-sand hover:text-gold transition-colors">Rooms</Link>
             <button onClick={() => { localStorage.removeItem('hr_admin_user'); router.push('/admin/login') }}
-              className="text-sm bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-md transition-colors">Logout</button>
+              className="text-sm bg-[#4a211d] hover:bg-[#5a2b25] text-[#e07b6b] px-3 py-1.5 rounded-md transition-colors border border-[#6b2f27]">Logout</button>
           </div>
         </div>
       </nav>
@@ -227,12 +227,12 @@ export default function AdminBookingsPage() {
               placeholder="Search by ID or guest name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-64"
+              className="w-full sm:w-64"
             />
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full sm:w-auto"
             >
               <option value="all">All Status</option>
               <option value="pending">Pending</option>
@@ -245,45 +245,45 @@ export default function AdminBookingsPage() {
           </div>
           <button
             onClick={() => setShowManualBooking(true)}
-            className="bg-yellow-500 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-yellow-600 transition-colors"
+            className="btn-primary px-4 py-2 text-sm whitespace-nowrap"
           >
             + Create Manual Booking
           </button>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-gray-50 text-left">
-                  <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase">Booking ID</th>
-                  <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase">Guest</th>
-                  <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase">Room</th>
-                  <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase">Check-in</th>
-                  <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase">Check-out</th>
-                  <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase">Amount</th>
-                  <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase">Payment</th>
-                  <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase">Status</th>
-                  <th className="px-4 py-3 text-xs font-medium text-gray-500 uppercase">Actions</th>
+                <tr className="bg-[#100e0b] text-left">
+                  <th className="px-4 py-3 text-xs font-medium text-mute uppercase">Booking ID</th>
+                  <th className="px-4 py-3 text-xs font-medium text-mute uppercase">Guest</th>
+                  <th className="px-4 py-3 text-xs font-medium text-mute uppercase">Room</th>
+                  <th className="px-4 py-3 text-xs font-medium text-mute uppercase">Check-in</th>
+                  <th className="px-4 py-3 text-xs font-medium text-mute uppercase">Check-out</th>
+                  <th className="px-4 py-3 text-xs font-medium text-mute uppercase">Amount</th>
+                  <th className="px-4 py-3 text-xs font-medium text-mute uppercase">Payment</th>
+                  <th className="px-4 py-3 text-xs font-medium text-mute uppercase">Status</th>
+                  <th className="px-4 py-3 text-xs font-medium text-mute uppercase">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-[#17130c]">
                 {filteredBookings.map((booking) => (
                   <>
-                    <tr key={booking.id} className="hover:bg-gray-50 cursor-pointer"
+                    <tr key={booking.id} className="hover:bg-[#100e0b] cursor-pointer"
                       onClick={() => setExpandedBooking(expandedBooking === booking.id ? null : booking.id)}>
-                      <td className="px-4 py-3 text-sm font-mono text-blue-600">{booking.bookingId}</td>
-                      <td className="px-4 py-3 text-sm text-gray-800">{booking.guestName}</td>
-                      <td className="px-4 py-3 text-sm text-gray-600">{booking.roomName}</td>
-                      <td className="px-4 py-3 text-sm text-gray-600">{formatDate(booking.checkIn)}</td>
-                      <td className="px-4 py-3 text-sm text-gray-600">{formatDate(booking.checkOut)}</td>
-                      <td className="px-4 py-3 text-sm font-medium text-gray-800">{formatPrice(booking.total)}</td>
+                      <td className="px-4 py-3 text-sm font-mono text-gold">{booking.bookingId}</td>
+                      <td className="px-4 py-3 text-sm text-cream">{booking.guestName}</td>
+                      <td className="px-4 py-3 text-sm text-sand">{booking.roomName}</td>
+                      <td className="px-4 py-3 text-sm text-sand">{formatDate(booking.checkIn)}</td>
+                      <td className="px-4 py-3 text-sm text-sand">{formatDate(booking.checkOut)}</td>
+                      <td className="px-4 py-3 text-sm font-medium text-cream">{formatPrice(booking.total)}</td>
                       <td className="px-4 py-3">
                         <select
                           value={booking.paymentStatus}
                           onClick={(e) => e.stopPropagation()}
                           onChange={(e) => handlePaymentUpdate(booking.id, e.target.value as PaymentStatus)}
-                          className={`px-2 py-1 rounded text-xs font-medium ${getPaymentBadge(booking.paymentStatus)} border-0 focus:ring-2 focus:ring-blue-500`}
+                          className={`px-2 py-1 rounded text-xs font-medium ${getPaymentBadge(booking.paymentStatus)} border border-current`}
                         >
                           <option value="pending">Pending</option>
                           <option value="paid">Paid</option>
@@ -304,16 +304,16 @@ export default function AdminBookingsPage() {
                     </tr>
                     {expandedBooking === booking.id && (
                       <tr key={`${booking.id}-detail`}>
-                        <td colSpan={9} className="px-6 py-4 bg-gray-50">
+                        <td colSpan={9} className="px-6 py-4 bg-[#100e0b]">
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                            <div><span className="text-gray-500">Full ID:</span> <span className="font-mono">{booking.id}</span></div>
-                            <div><span className="text-gray-500">Email:</span> {booking.guestEmail}</div>
-                            <div><span className="text-gray-500">Phone:</span> {booking.guestPhone}</div>
-                            <div><span className="text-gray-500">Guests:</span> {booking.numberOfGuests}</div>
-                            <div><span className="text-gray-500">Rooms:</span> {booking.numberOfRooms}</div>
-                            <div><span className="text-gray-500">Nights:</span> {calculateNights(booking.checkIn, booking.checkOut)}</div>
-                            <div><span className="text-gray-500">Created:</span> {formatDate(booking.createdAt)}</div>
-                            <div><span className="text-gray-500">Payment Method:</span> {booking.paymentMethod}</div>
+                            <div><span className="text-mute">Full ID:</span> <span className="font-mono text-cream">{booking.id}</span></div>
+                            <div><span className="text-mute">Email:</span> <span className="text-cream">{booking.guestEmail}</span></div>
+                            <div><span className="text-mute">Phone:</span> <span className="text-cream">{booking.guestPhone}</span></div>
+                            <div><span className="text-mute">Guests:</span> <span className="text-cream">{booking.numberOfGuests}</span></div>
+                            <div><span className="text-mute">Rooms:</span> <span className="text-cream">{booking.numberOfRooms}</span></div>
+                            <div><span className="text-mute">Nights:</span> <span className="text-cream">{calculateNights(booking.checkIn, booking.checkOut)}</span></div>
+                            <div><span className="text-mute">Created:</span> <span className="text-cream">{formatDate(booking.createdAt)}</span></div>
+                            <div><span className="text-mute">Payment Method:</span> <span className="text-cream">{booking.paymentMethod}</span></div>
                           </div>
                         </td>
                       </tr>
@@ -323,40 +323,37 @@ export default function AdminBookingsPage() {
               </tbody>
             </table>
             {filteredBookings.length === 0 && (
-              <p className="text-center text-gray-500 py-8">No bookings found.</p>
+              <p className="text-center text-mute py-8">No bookings found.</p>
             )}
           </div>
         </div>
 
         {showManualBooking && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-              <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-800">Create Manual Booking</h3>
-                <button onClick={() => setShowManualBooking(false)} className="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+            <div className="card bg-coal w-full max-w-lg max-h-[90vh] overflow-y-auto">
+              <div className="px-6 py-4 border-b border-line flex justify-between items-center">
+                <h3 className="font-display text-lg font-semibold text-cream">Create Manual Booking</h3>
+                <button onClick={() => setShowManualBooking(false)} className="text-mute hover:text-cream text-xl">&times;</button>
               </div>
               <form onSubmit={handleManualBooking} className="p-6 space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Guest Name *</label>
+                    <label className="block text-sm font-medium text-sand mb-1">Guest Name *</label>
                     <input type="text" required value={manualForm.guestName}
-                      onChange={(e) => setManualForm({ ...manualForm, guestName: e.target.value })}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      onChange={(e) => setManualForm({ ...manualForm, guestName: e.target.value })} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                    <label className="block text-sm font-medium text-sand mb-1">Email *</label>
                     <input type="email" required value={manualForm.guestEmail}
-                      onChange={(e) => setManualForm({ ...manualForm, guestEmail: e.target.value })}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      onChange={(e) => setManualForm({ ...manualForm, guestEmail: e.target.value })} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
+                    <label className="block text-sm font-medium text-sand mb-1">Phone *</label>
                     <input type="tel" required value={manualForm.guestPhone}
-                      onChange={(e) => setManualForm({ ...manualForm, guestPhone: e.target.value })}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      onChange={(e) => setManualForm({ ...manualForm, guestPhone: e.target.value })} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Room Type *</label>
+                    <label className="block text-sm font-medium text-sand mb-1">Room Type *</label>
                     <select required value={manualForm.roomTypeId}
                       onChange={(e) => {
                         const rt = roomTypes.find(r => r.id === e.target.value)
@@ -366,8 +363,7 @@ export default function AdminBookingsPage() {
                           roomName: rt?.name || '',
                           roomPrice: rt?.price || 0
                         })
-                      }}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                      }}>
                       <option value="">Select room type</option>
                       {roomTypes.map(rt => (
                         <option key={rt.id} value={rt.id}>{rt.name} - {formatPrice(rt.price)}/night</option>
@@ -375,34 +371,29 @@ export default function AdminBookingsPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Check-in *</label>
+                    <label className="block text-sm font-medium text-sand mb-1">Check-in *</label>
                     <input type="date" required value={manualForm.checkIn}
-                      onChange={(e) => setManualForm({ ...manualForm, checkIn: e.target.value })}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      onChange={(e) => setManualForm({ ...manualForm, checkIn: e.target.value })} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Check-out *</label>
+                    <label className="block text-sm font-medium text-sand mb-1">Check-out *</label>
                     <input type="date" required value={manualForm.checkOut}
-                      onChange={(e) => setManualForm({ ...manualForm, checkOut: e.target.value })}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      onChange={(e) => setManualForm({ ...manualForm, checkOut: e.target.value })} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Guests</label>
+                    <label className="block text-sm font-medium text-sand mb-1">Guests</label>
                     <input type="number" min="1" value={manualForm.numberOfGuests}
-                      onChange={(e) => setManualForm({ ...manualForm, numberOfGuests: parseInt(e.target.value) })}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      onChange={(e) => setManualForm({ ...manualForm, numberOfGuests: parseInt(e.target.value) })} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Rooms</label>
+                    <label className="block text-sm font-medium text-sand mb-1">Rooms</label>
                     <input type="number" min="1" value={manualForm.numberOfRooms}
-                      onChange={(e) => setManualForm({ ...manualForm, numberOfRooms: parseInt(e.target.value) })}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      onChange={(e) => setManualForm({ ...manualForm, numberOfRooms: parseInt(e.target.value) })} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
+                    <label className="block text-sm font-medium text-sand mb-1">Payment Method</label>
                     <select value={manualForm.paymentMethod}
-                      onChange={(e) => setManualForm({ ...manualForm, paymentMethod: e.target.value as PaymentMethod })}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                      onChange={(e) => setManualForm({ ...manualForm, paymentMethod: e.target.value as PaymentMethod })}>
                       <option value="cash">Cash</option>
                       <option value="card">Card</option>
                       <option value="upi">UPI</option>
@@ -410,10 +401,9 @@ export default function AdminBookingsPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Payment Status</label>
+                    <label className="block text-sm font-medium text-sand mb-1">Payment Status</label>
                     <select value={manualForm.paymentStatus}
-                      onChange={(e) => setManualForm({ ...manualForm, paymentStatus: e.target.value as PaymentStatus })}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                      onChange={(e) => setManualForm({ ...manualForm, paymentStatus: e.target.value as PaymentStatus })}>
                       <option value="pending">Pending</option>
                       <option value="paid">Paid</option>
                       <option value="failed">Failed</option>
@@ -421,21 +411,20 @@ export default function AdminBookingsPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Booking Status</label>
+                    <label className="block text-sm font-medium text-sand mb-1">Booking Status</label>
                     <select value={manualForm.bookingStatus}
-                      onChange={(e) => setManualForm({ ...manualForm, bookingStatus: e.target.value as BookingStatus })}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                      onChange={(e) => setManualForm({ ...manualForm, bookingStatus: e.target.value as BookingStatus })}>
                       <option value="pending">Pending</option>
                       <option value="confirmed">Confirmed</option>
                       <option value="checked_in">Checked In</option>
                     </select>
                   </div>
                 </div>
-                <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+                <div className="flex justify-end gap-3 pt-4 border-t border-line">
                   <button type="button" onClick={() => setShowManualBooking(false)}
-                    className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800">Cancel</button>
+                    className="px-4 py-2 text-sm text-mute hover:text-cream">Cancel</button>
                   <button type="submit"
-                    className="px-4 py-2 bg-blue-800 text-white rounded-md text-sm font-semibold hover:bg-blue-900 transition-colors">
+                    className="btn-primary px-4 py-2 text-sm">
                     Create Booking
                   </button>
                 </div>

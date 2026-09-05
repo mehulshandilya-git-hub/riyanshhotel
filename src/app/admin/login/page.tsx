@@ -33,40 +33,39 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-8">
+    <div className="min-h-screen bg-[#0a0907] flex items-center justify-center px-6">
+      <div className="card w-full max-w-md p-8">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-800">Hotel Riyansh</h1>
-          <p className="text-sm text-gray-500 mt-1">Admin Login</p>
+          <h1 className="font-display text-2xl font-semibold text-cream">Hotel Riyansh</h1>
+          <div className="rule-gold w-14 mx-auto mt-3" />
+          <p className="text-sm text-mute mt-3">Admin Login</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {error && (
-            <div className="bg-red-50 text-red-600 border border-red-200 rounded-md px-4 py-3 text-sm">
+            <div className="bg-[#2a100f] text-[#e07b6b] border border-[#4a211d] rounded-md px-4 py-3 text-sm">
               {error}
             </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-sand mb-1">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="admin@hotelriyansh.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-sand mb-1">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter your password"
             />
           </div>
@@ -74,14 +73,14 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-800 text-white py-2.5 rounded-md text-sm font-semibold hover:bg-blue-900 disabled:opacity-50 transition-colors"
+            className="btn-primary w-full !py-2.5 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
         <div className="text-center mt-6">
-          <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
+          <Link href="/" className="text-sm text-mute hover:text-gold transition-colors">
             ← Back to Hotel Website
           </Link>
         </div>
