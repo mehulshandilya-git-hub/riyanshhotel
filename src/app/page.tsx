@@ -16,8 +16,8 @@ export default function Home() {
       <Hero />
       <AboutSection />
       <FeaturedRooms />
-      <FacilitiesSection />
       <RestaurantSection />
+      <FacilitiesSection />
       <ExperienceSection />
       <LocationSection />
       <BookDirectBanner />
