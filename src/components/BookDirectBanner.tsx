@@ -1,26 +1,33 @@
 import Link from 'next/link';
+import { HOTEL_INFO } from '@/types';
 
 export default function BookDirectBanner() {
   return (
-    <section className="bg-[#1a2744]">
-      <div className="max-w-7xl mx-auto px-4 py-10">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-[#c9a96e]/20 flex items-center justify-center shrink-0">
-              <svg className="w-6 h-6 text-[#c9a96e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-            </div>
-            <div>
-              <h3 className="text-white font-bold text-lg md:text-xl">Best Rate Guarantee.</h3>
-              <p className="text-gray-300 text-sm">Book directly with Hotel Riyansh for the best available rate.</p>
-            </div>
+    <section className="relative overflow-hidden bg-[#0a0907]">
+      <div className="absolute inset-0 opacity-[0.07] bg-[radial-gradient(circle_at_20%_50%,#c9a96e,transparent_40%),radial-gradient(circle_at_80%_50%,#c9a96e,transparent_40%)]" />
+      <div className="relative max-w-7xl mx-auto px-6 py-16 md:py-20">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div className="max-w-xl">
+            <p className="eyebrow mb-4">Begin your stay</p>
+            <h2 className="font-display text-3xl md:text-4xl font-semibold text-[#f2ecdf] leading-tight">
+              Book your stay <span className="gold-gradient-text italic">directly with us</span>
+            </h2>
+            <p className="text-[#8f8672] text-lg mt-3">
+              The best rate is always the direct one. Choose a room, check our availability, and
+              reserve over WhatsApp — or simply call us at {HOTEL_INFO.phone}.
+            </p>
           </div>
-          <Link
-            href="/book"
-            className="inline-flex items-center justify-center gap-2 bg-[#c9a96e] hover:bg-[#b8963d] text-white font-semibold px-8 py-3.5 rounded-xl transition-colors shrink-0"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-            Check Availability
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+            <Link
+              href="/book"
+              className="btn-primary !px-9 !py-4 text-base"
+            >
+              Book Your Stay
+            </Link>
+            <Link href="/rooms" className="btn-gold !px-9 !py-4 text-base">
+              View Rooms
+            </Link>
+          </div>
         </div>
       </div>
     </section>
