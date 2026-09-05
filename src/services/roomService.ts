@@ -1,122 +1,80 @@
 import { RoomType, Room, BookingSearch } from '@/types';
-import { mockRoomTypes, mockRooms, mockBookings } from './mockData';
+import { db } from '@/lib/firebase';
+import { ensureSeeded } from '@/lib/seed';
 import { doBookingsOverlap, generateId } from '@/lib/utils';
+import { collection, getDocs, doc, setDoc, updateDoc } from 'firebase/firestore';
 
-function getRoomTypes(): RoomType[] {
-  if (typeof window === 'undefined') return [...mockRoomTypes];
-  const stored = localStorage.getItem('hr_room_types');
-  if (stored) {
-    return [...mockRoomTypes, ...JSON.parse(stored)];
-  }
-  return [...mockRoomTypes];
-}
-
-function getPhysicalRooms(): Room[] {
-  if (typeof window === 'undefined') return [...mockRooms];
-  const stored = localStorage.getItem('hr_rooms');
-  if (stored) {
-    return [...mockRooms, ...JSON.parse(stored)];
-  }
-  return [...mockRooms];
-}
-
-function getBookings() {
-  if (typeof window === 'undefined') return [...mockBookings];
-  const stored = localStorage.getItem('hr_bookings');
-  if (stored) {
-    return [...mockBookings, ...JSON.parse(stored)];
-  }
-  return [...mockBookings];
-}
-
-function saveRoomTypes(types: RoomType[]) {
-  const customOnly = types.filter((t) => !mockRoomTypes.find((m) => m.id === t.id));
-  localStorage.setItem('hr_room_types', JSON.stringify(customOnly));
-}
-
-function savePhysicalRooms(rooms: Room[]) {
-  const customOnly = rooms.filter((r) => !mockRooms.find((m) => m.id === r.id));
-  localStorage.setItem('hr_rooms', JSON.stringify(customOnly));
+async function fetchDocs<T extends { id: string }>(path: string): Promise<T[]> {
+  const snap = await getDocs(collection(db, path));
+  return snap.docs.map((d) => ({ ...(d.data() as T), id: d.id }));
 }
 
 export const roomService = {
   async getRoomTypes(): Promise<RoomType[]> {
-    await new Promise((r) => setTimeout(r, 200));
-    return getRoomTypes().filter((rt) => rt.active);
+    await ensureSeeded();
+    const types = await fetchDocs<RoomType>('roomTypes');
+    return types.filter((rt) => rt.active);
   },
 
   async getAllRoomTypes(): Promise<RoomType[]> {
-    await new Promise((r) => setTimeout(r, 200));
-    return getRoomTypes();
+    await ensureSeeded();
+    return fetchDocs<RoomType>('roomTypes');
   },
 
   async getRoomTypeById(id: string): Promise<RoomType | null> {
-    const types = getRoomTypes();
+    const types = await fetchDocs<RoomType>('roomTypes');
     return types.find((t) => t.id === id) || null;
   },
 
   async getPhysicalRooms(): Promise<Room[]> {
-    await new Promise((r) => setTimeout(r, 200));
-    return getPhysicalRooms();
+    await ensureSeeded();
+    return fetchDocs<Room>('rooms');
   },
 
   async getPhysicalRoomsByType(roomTypeId: string): Promise<Room[]> {
-    const rooms = getPhysicalRooms();
+    const rooms = await fetchDocs<Room>('rooms');
     return rooms.filter((r) => r.roomTypeId === roomTypeId && r.active && !r.maintenanceStatus);
   },
 
   async addRoomType(data: Omit<RoomType, 'id'>): Promise<RoomType> {
-    await new Promise((r) => setTimeout(r, 300));
-    const types = getRoomTypes();
     const newType: RoomType = { ...data, id: generateId() };
-    types.push(newType);
-    saveRoomTypes(types);
+    await setDoc(doc(db, 'roomTypes', newType.id), newType);
     return newType;
   },
 
   async updateRoomType(id: string, data: Partial<RoomType>): Promise<RoomType | null> {
-    await new Promise((r) => setTimeout(r, 300));
-    const types = getRoomTypes();
-    const idx = types.findIndex((t) => t.id === id);
-    if (idx === -1) return null;
-    types[idx] = { ...types[idx], ...data };
-    saveRoomTypes(types);
-    return types[idx];
+    await updateDoc(doc(db, 'roomTypes', id), data as Record<string, unknown>);
+    return this.getRoomTypeById(id);
   },
 
   async addPhysicalRoom(data: Omit<Room, 'id'>): Promise<Room> {
-    await new Promise((r) => setTimeout(r, 300));
-    const rooms = getPhysicalRooms();
     const newRoom: Room = { ...data, id: generateId() };
-    rooms.push(newRoom);
-    savePhysicalRooms(rooms);
+    await setDoc(doc(db, 'rooms', newRoom.id), newRoom);
     return newRoom;
   },
 
   async updatePhysicalRoom(id: string, data: Partial<Room>): Promise<Room | null> {
-    await new Promise((r) => setTimeout(r, 300));
-    const rooms = getPhysicalRooms();
-    const idx = rooms.findIndex((r) => r.id === id);
-    if (idx === -1) return null;
-    rooms[idx] = { ...rooms[idx], ...data };
-    savePhysicalRooms(rooms);
-    return rooms[idx];
+    await updateDoc(doc(db, 'rooms', id), data as Record<string, unknown>);
+    const rooms = await fetchDocs<Room>('rooms');
+    return rooms.find((r) => r.id === id) || null;
   },
 
   async getAvailableRooms(search: BookingSearch): Promise<{ roomType: RoomType; availableCount: number }[]> {
-    await new Promise((r) => setTimeout(r, 300));
+    await ensureSeeded();
+    const [roomTypes, physicalRooms, bookings] = await Promise.all([
+      fetchDocs<RoomType>('roomTypes'),
+      fetchDocs<Room>('rooms'),
+      fetchDocs<any>('bookings'),
+    ]);
 
-    const roomTypes = getRoomTypes().filter((rt) => rt.active);
-    const physicalRooms = getPhysicalRooms();
-    const bookings = getBookings();
-
+    const activeRoomTypes = roomTypes.filter((rt) => rt.active);
     const activeBookings = bookings.filter(
       (b) => b.bookingStatus !== 'cancelled' && b.bookingStatus !== 'rejected'
     );
 
     const results: { roomType: RoomType; availableCount: number }[] = [];
 
-    for (const rt of roomTypes) {
+    for (const rt of activeRoomTypes) {
       const totalRooms = physicalRooms.filter(
         (r) => r.roomTypeId === rt.id && r.active && !r.maintenanceStatus
       ).length;

@@ -1,28 +1,21 @@
 import { User } from '@/types';
-import { mockUsers } from './mockData';
-
-function getAllUsers(): User[] {
-  if (typeof window === 'undefined') return [...mockUsers];
-  const stored = localStorage.getItem('hr_users');
-  if (stored) {
-    return [...mockUsers, ...JSON.parse(stored)];
-  }
-  return [...mockUsers];
-}
+import { db } from '@/lib/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 export const customerService = {
   async getAllCustomers(): Promise<User[]> {
-    await new Promise((r) => setTimeout(r, 200));
-    return getAllUsers().filter((u) => u.role === 'customer');
+    const snap = await getDocs(collection(db, 'users'));
+    const users = snap.docs.map((d) => ({ ...(d.data() as User), id: d.id }));
+    return users.filter((u) => u.role === 'customer');
   },
 
   async getCustomerById(id: string): Promise<User | null> {
-    const users = getAllUsers();
+    const users = await this.getAllCustomers();
     return users.find((u) => u.id === id) || null;
   },
 
   async getCustomerCount(): Promise<number> {
-    const users = getAllUsers();
-    return users.filter((u) => u.role === 'customer').length;
+    const users = await this.getAllCustomers();
+    return users.length;
   },
 };

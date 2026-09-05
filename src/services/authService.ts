@@ -1,78 +1,129 @@
 import { User } from '@/types';
-import { mockUsers } from './mockData';
-import { generateId } from '@/lib/utils';
+import {
+  auth,
+  db,
+  authDoc,
+  hydrateSessionUser,
+  keepUserInSync,
+} from '@/lib/firebase';
+import { ensureSeeded } from '@/lib/seed';
+import { doc, setDoc } from 'firebase/firestore';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  sendPasswordResetEmail,
+} from 'firebase/auth';
 
-const STORAGE_KEY = 'hr_auth_user';
+const AUTH_SESSION_KEY = 'hr_auth_user';
 
-function getUsers(): User[] {
-  if (typeof window === 'undefined') return [...mockUsers];
-  const stored = localStorage.getItem('hr_users');
-  if (stored) {
-    return [...mockUsers, ...JSON.parse(stored)];
+function friendlyAuthError(err: any): string {
+  switch (err?.code) {
+    case 'auth/user-not-found':
+    case 'auth/wrong-password':
+    case 'auth/invalid-credential':
+      return 'Invalid email or password.';
+    case 'auth/email-already-in-use':
+      return 'An account with this email already exists.';
+    case 'auth/invalid-email':
+      return 'Please enter a valid email address.';
+    case 'auth/weak-password':
+      return 'Password should be at least 6 characters.';
+    case 'auth/network-request-failed':
+      return 'Network error. Please check your internet connection and try again.';
+    case 'auth/user-disabled':
+      return 'This account has been disabled.';
+    default:
+      return err?.message || 'Something went wrong. Please try again.';
   }
-  return [...mockUsers];
 }
 
-function saveCustomUsers(users: User[]) {
-  const customOnly = users.filter((u) => !mockUsers.find((m) => m.id === u.id));
-  localStorage.setItem('hr_users', JSON.stringify(customOnly));
+function toUser(uid: string, data: Partial<User>): User {
+  return {
+    id: uid,
+    name: data.name || '',
+    email: data.email || '',
+    phone: data.phone || '',
+    role: data.role || 'customer',
+    createdAt: data.createdAt || new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
 }
 
 export const authService = {
-  async login(email: string, _password: string): Promise<{ success: boolean; user?: User; error?: string }> {
-    await new Promise((r) => setTimeout(r, 500));
-    const users = getUsers();
-    const user = users.find((u) => u.email === email);
-    if (!user) return { success: false, error: 'No account found with this email.' };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-    return { success: true, user };
+  async login(email: string, password: string): Promise<{ success: boolean; user?: User; error?: string }> {
+    await ensureSeeded();
+    try {
+      const cred = await signInWithEmailAndPassword(auth, email.trim(), password);
+      const uid = cred.user.uid;
+
+      let profile = await authDoc<User>(uid);
+      if (!profile) {
+        profile = toUser(uid, { email: email.trim(), name: 'Guest', role: 'customer' });
+        await setDoc(doc(db, 'users', uid), profile);
+      }
+      const user = toUser(uid, profile);
+      hydrateSessionUser(user);
+      keepUserInSync(uid);
+      return { success: true, user };
+    } catch (err) {
+      return { success: false, error: friendlyAuthError(err) };
+    }
   },
 
   async register(data: { name: string; email: string; phone: string; password: string }): Promise<{ success: boolean; user?: User; error?: string }> {
-    await new Promise((r) => setTimeout(r, 500));
-    const users = getUsers();
-    if (users.find((u) => u.email === data.email)) {
-      return { success: false, error: 'An account with this email already exists.' };
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, data.email.trim(), data.password);
+      const uid = cred.user.uid;
+      const user: User = {
+        id: uid,
+        name: data.name.trim(),
+        email: data.email.trim(),
+        phone: data.phone.trim(),
+        role: 'customer',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      await setDoc(doc(db, 'users', uid), user);
+      hydrateSessionUser(user);
+      keepUserInSync(uid);
+      return { success: true, user };
+    } catch (err) {
+      return { success: false, error: friendlyAuthError(err) };
     }
-    const newUser: User = {
-      id: generateId(),
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      role: 'customer',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    const customUsers = users.filter((u) => !mockUsers.find((m) => m.id === u.id));
-    customUsers.push(newUser);
-    saveCustomUsers(customUsers);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
-    return { success: true, user: newUser };
   },
 
   async logout(): Promise<void> {
-    localStorage.removeItem(STORAGE_KEY);
+    try {
+      await signOut(auth);
+    } catch {
+      // ignore sign-out errors
+    }
+    hydrateSessionUser(null);
   },
 
-  async resetPassword(_email: string): Promise<{ success: boolean; error?: string }> {
-    await new Promise((r) => setTimeout(r, 500));
-    return { success: true };
+  async resetPassword(email: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      await sendPasswordResetEmail(auth, email.trim());
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: friendlyAuthError(err) };
+    }
   },
 
   getCurrentUser(): User | null {
     if (typeof window === 'undefined') return null;
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = localStorage.getItem(AUTH_SESSION_KEY);
     if (!stored) return null;
     try {
-      return JSON.parse(stored);
+      return JSON.parse(stored) as User;
     } catch {
       return null;
     }
   },
 
   isAdmin(): boolean {
-    const user = this.getCurrentUser();
-    return user?.role === 'admin';
+    return this.getCurrentUser()?.role === 'admin';
   },
 
   isLoggedIn(): boolean {

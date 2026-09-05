@@ -1,19 +1,13 @@
 import { Booking, BookingStatus, PaymentStatus, PaymentMethod } from '@/types';
-import { mockBookings } from './mockData';
+import { db } from '@/lib/firebase';
+import { ensureSeeded } from '@/lib/seed';
 import { generateBookingId, generateId, calculateNights, doBookingsOverlap } from '@/lib/utils';
+import { collection, getDocs, doc, setDoc, updateDoc } from 'firebase/firestore';
 
-function getBookings(): Booking[] {
-  if (typeof window === 'undefined') return [...mockBookings];
-  const stored = localStorage.getItem('hr_bookings');
-  if (stored) {
-    return [...mockBookings, ...JSON.parse(stored)];
-  }
-  return [...mockBookings];
-}
-
-function saveBookings(bookings: Booking[]) {
-  const customOnly = bookings.filter((b) => !mockBookings.find((m) => m.id === b.id));
-  localStorage.setItem('hr_bookings', JSON.stringify(customOnly));
+async function fetchBookings(): Promise<Booking[]> {
+  await ensureSeeded();
+  const snap = await getDocs(collection(db, 'bookings'));
+  return snap.docs.map((d) => ({ ...(d.data() as Booking), id: d.id }));
 }
 
 export const bookingService = {
@@ -32,9 +26,7 @@ export const bookingService = {
     paymentMethod: PaymentMethod;
     specialRequests?: string;
   }): Promise<{ success: boolean; booking?: Booking; error?: string }> {
-    await new Promise((r) => setTimeout(r, 500));
-
-    const bookings = getBookings();
+    const bookings = await fetchBookings();
 
     const activeBookings = bookings.filter(
       (b) => b.bookingStatus !== 'cancelled' && b.bookingStatus !== 'rejected'
@@ -80,47 +72,43 @@ export const bookingService = {
       updatedAt: new Date().toISOString(),
     };
 
-    bookings.push(booking);
-    saveBookings(bookings);
+    await setDoc(doc(db, 'bookings', booking.id), booking);
     return { success: true, booking };
   },
 
   async getBooking(id: string): Promise<Booking | null> {
-    const bookings = getBookings();
+    const bookings = await fetchBookings();
     return bookings.find((b) => b.id === id || b.bookingId === id) || null;
   },
 
   async getCustomerBookings(userId: string): Promise<Booking[]> {
-    await new Promise((r) => setTimeout(r, 200));
-    const bookings = getBookings();
-    return bookings.filter((b) => b.userId === userId).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    const bookings = await fetchBookings();
+    return bookings
+      .filter((b) => b.userId === userId)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   },
 
   async getAllBookings(): Promise<Booking[]> {
-    await new Promise((r) => setTimeout(r, 200));
-    return getBookings().sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    const bookings = await fetchBookings();
+    return bookings.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   },
 
   async updateBookingStatus(id: string, status: BookingStatus): Promise<{ success: boolean; error?: string }> {
-    await new Promise((r) => setTimeout(r, 300));
-    const bookings = getBookings();
-    const idx = bookings.findIndex((b) => b.id === id);
-    if (idx === -1) return { success: false, error: 'Booking not found' };
-    bookings[idx].bookingStatus = status;
-    bookings[idx].updatedAt = new Date().toISOString();
-    saveBookings(bookings);
-    return { success: true };
+    try {
+      await updateDoc(doc(db, 'bookings', id), { bookingStatus: status, updatedAt: new Date().toISOString() });
+      return { success: true };
+    } catch {
+      return { success: false, error: 'Booking not found' };
+    }
   },
 
   async updatePaymentStatus(id: string, status: PaymentStatus): Promise<{ success: boolean; error?: string }> {
-    await new Promise((r) => setTimeout(r, 300));
-    const bookings = getBookings();
-    const idx = bookings.findIndex((b) => b.id === id);
-    if (idx === -1) return { success: false, error: 'Booking not found' };
-    bookings[idx].paymentStatus = status;
-    bookings[idx].updatedAt = new Date().toISOString();
-    saveBookings(bookings);
-    return { success: true };
+    try {
+      await updateDoc(doc(db, 'bookings', id), { paymentStatus: status, updatedAt: new Date().toISOString() });
+      return { success: true };
+    } catch {
+      return { success: false, error: 'Booking not found' };
+    }
   },
 
   async cancelBooking(id: string): Promise<{ success: boolean; error?: string }> {
@@ -136,7 +124,7 @@ export const bookingService = {
     occupied: number;
     available: number;
   }> {
-    const bookings = getBookings();
+    const bookings = await fetchBookings();
     const today = new Date().toISOString().split('T')[0];
 
     const active = bookings.filter(
@@ -175,10 +163,9 @@ export const bookingService = {
     if (result.success && result.booking) {
       await this.updateBookingStatus(result.booking.id, data.bookingStatus);
       await this.updatePaymentStatus(result.booking.id, data.paymentStatus);
-      const bookings = getBookings();
-      const idx = bookings.findIndex((b) => b.id === result.booking!.id);
-      if (idx !== -1) {
-        result.booking = bookings[idx];
+      const refreshed = await this.getBooking(result.booking.id);
+      if (refreshed) {
+        result.booking = refreshed;
       }
     }
     return result;
