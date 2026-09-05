@@ -8,7 +8,19 @@ import { getPhoneUrl } from '@/lib/utils';
 export default function Hero() {
   return (
     <section className="relative bg-[#1a2744] text-white overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1a2744] via-[#243556] to-[#17213a] opacity-95" />
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+      >
+        <source src="/videos/background-video-main.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-[#1a2744]/75" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#1a2744]/90 via-[#1a2744]/40 to-transparent" />
       <div className="absolute inset-0 opacity-10">
         <div className="absolute -top-20 -left-20 w-96 h-96 bg-[#c9a96e] rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-[28rem] h-[28rem] bg-[#c9a96e] rounded-full blur-3xl" />
