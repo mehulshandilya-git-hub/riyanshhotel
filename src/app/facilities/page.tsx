@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 const facilities = [
   {
     name: 'Parking',
-    description: 'Secure on-premises parking space available for guests arriving by car or two-wheeler. Park your vehicle worry-free during your stay.',
+    description: 'On-premises parking for cars and two-wheelers.',
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -14,7 +14,7 @@ const facilities = [
   },
   {
     name: 'Wi-Fi',
-    description: 'Complimentary high-speed Wi-Fi access available in all rooms and common areas. Stay connected with friends, family, or work during your stay.',
+    description: 'Complimentary high-speed Wi-Fi in all rooms.',
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0" />
@@ -23,7 +23,7 @@ const facilities = [
   },
   {
     name: 'Room Service',
-    description: 'Enjoy the comfort of dining in your room. Order from our in-house restaurant menu and have your meals delivered right to your doorstep.',
+    description: 'Meals from our restaurant, delivered to your room.',
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
@@ -32,7 +32,7 @@ const facilities = [
   },
   {
     name: 'TV',
-    description: 'Each room is equipped with a television with access to popular cable and satellite channels for your entertainment and relaxation.',
+    description: 'Television with cable channels in every room.',
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -41,7 +41,7 @@ const facilities = [
   },
   {
     name: 'Geyser / Hot Water',
-    description: 'Round-the-clock hot water supply through geysers installed in every bathroom. Enjoy a warm and refreshing bathing experience any time.',
+    description: 'Hot water available round the clock.',
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
@@ -51,7 +51,7 @@ const facilities = [
   },
   {
     name: 'Attached Bathroom',
-    description: 'Every room comes with a clean, well-maintained attached bathroom with tiled interiors, mirror, and essential toiletries.',
+    description: 'Clean attached bathrooms with essential toiletries.',
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -60,7 +60,7 @@ const facilities = [
   },
   {
     name: 'AC',
-    description: 'Air conditioning available in select rooms to keep you cool and comfortable during the warm months. Choose from our range of AC rooms.',
+    description: 'Air-conditioned rooms available for warm months.',
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -69,7 +69,7 @@ const facilities = [
   },
   {
     name: 'In-house Restaurant',
-    description: 'A fully operational in-house restaurant serving breakfast, lunch, dinner, and beverages with both veg and non-veg options available daily.',
+    description: 'Veg and non-veg meals, breakfast to dinner.',
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25v14.25m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />

@@ -1,26 +1,26 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
-import AboutSection from '@/components/AboutSection';
+import ShortIntro from '@/components/ShortIntro';
 import FeaturedRooms from '@/components/FeaturedRooms';
-import FacilitiesSection from '@/components/FacilitiesSection';
+import HotelExperience from '@/components/HotelExperience';
 import RestaurantSection from '@/components/RestaurantSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import LocationSection from '@/components/LocationSection';
-import BookDirectBanner from '@/components/BookDirectBanner';
+import FinalCTA from '@/components/FinalCTA';
 
 export default function Home() {
   return (
     <>
       <Navbar />
       <Hero />
-      <AboutSection />
+      <ShortIntro />
       <FeaturedRooms />
+      <HotelExperience />
       <RestaurantSection />
-      <FacilitiesSection />
       <ExperienceSection />
       <LocationSection />
-      <BookDirectBanner />
+      <FinalCTA />
       <Footer />
     </>
   );

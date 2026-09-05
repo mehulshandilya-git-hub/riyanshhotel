@@ -64,7 +64,7 @@ export default function FeaturedRooms() {
                   href={`/book?roomType=${room.id}&guests=2&rooms=1`}
                   className="w-full inline-flex items-center justify-center gap-2 border border-[#3a3427] hover:border-[#c9a96e] hover:bg-[#c9a96e]/10 text-[#c6bda7] hover:text-[#dcbd85] font-semibold rounded-lg px-4 py-2.5 transition-colors text-sm"
                 >
-                  Check Availability
+                  View Room
                 </Link>
               </div>
             </div>
