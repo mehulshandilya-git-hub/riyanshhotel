@@ -19,12 +19,6 @@ export default function Hero() {
       >
         <source src="/videos/background-video-main.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-[#1a2744]/75" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1a2744]/90 via-[#1a2744]/40 to-transparent" />
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute -top-20 -left-20 w-96 h-96 bg-[#c9a96e] rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-[28rem] h-[28rem] bg-[#c9a96e] rounded-full blur-3xl" />
-      </div>
 
       <div className="relative max-w-7xl mx-auto px-4 pt-14 pb-16 md:pt-20 md:pb-24">
         <p className="text-[#c9a96e] font-medium tracking-[0.25em] uppercase text-xs md:text-sm mb-4">
