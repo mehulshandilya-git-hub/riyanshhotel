@@ -113,11 +113,16 @@ export default function RoomsPage() {
                     </p>
                     <p className="text-gray-500 text-sm leading-relaxed mb-4">{room.description}</p>
                     <div className="flex flex-wrap gap-2 mb-6">
-                      {room.amenities.map((amenity) => (
+                      {room.amenities.slice(0, 4).map((amenity) => (
                         <span key={amenity} className="text-xs bg-white text-gray-600 px-2.5 py-1 rounded-full border border-gray-100">
                           {amenity}
                         </span>
                       ))}
+                      {room.amenities.length > 4 && (
+                        <span className="text-xs text-gray-400 px-1 self-center">
+                          +{room.amenities.length - 4}
+                        </span>
+                      )}
                     </div>
                     <Link
                       href={`/book?roomType=${room.id}&guests=2&rooms=1`}

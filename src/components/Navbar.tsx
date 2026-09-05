@@ -35,11 +35,9 @@ export default function Navbar() {
   }
 
   const publicLinks = [
-    { href: '/', label: 'Home' },
     { href: '/rooms', label: 'Rooms' },
     { href: '/restaurant', label: 'Restaurant' },
     { href: '/facilities', label: 'Facilities' },
-    { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
   ];
 
@@ -88,28 +86,18 @@ export default function Navbar() {
                 {user ? (
                   <>
                     {user.role !== 'admin' && (
-                      <>
-                        <Link href="/account" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
-                          My Account
-                        </Link>
-                        <Link href="/my-bookings" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
-                          My Bookings
-                        </Link>
-                      </>
+                      <Link href="/my-bookings" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
+                        My Bookings
+                      </Link>
                     )}
                     <button onClick={handleLogout} className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
                       Logout
                     </button>
                   </>
                 ) : (
-                  <>
-                    <Link href="/login" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
-                      Login
-                    </Link>
-                    <Link href="/register" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
-                      Register
-                    </Link>
-                  </>
+                  <Link href="/login" className="text-sm font-medium text-gray-700 hover:text-[#c9a96e] transition-colors">
+                    Login
+                  </Link>
                 )}
               </div>
               <Link href="/book" className="inline-flex items-center gap-2 bg-[#1a2744] hover:bg-[#243556] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
@@ -153,18 +141,12 @@ export default function Navbar() {
               {user ? (
                 <>
                   {user.role !== 'admin' && (
-                    <>
-                      <Link href="/account" onClick={() => setIsOpen(false)} className="block py-2 text-sm font-medium text-gray-700">My Account</Link>
-                      <Link href="/my-bookings" onClick={() => setIsOpen(false)} className="block py-2 text-sm font-medium text-gray-700">My Bookings</Link>
-                    </>
+                    <Link href="/my-bookings" onClick={() => setIsOpen(false)} className="block py-2 text-sm font-medium text-gray-700">My Bookings</Link>
                   )}
                   <button onClick={() => { handleLogout(); setIsOpen(false); }} className="block py-2 text-sm font-medium text-gray-700">Logout</button>
                 </>
               ) : (
-                <>
-                  <Link href="/login" onClick={() => setIsOpen(false)} className="block py-2 text-sm font-medium text-gray-700">Login</Link>
-                  <Link href="/register" onClick={() => setIsOpen(false)} className="block py-2 text-sm font-medium text-gray-700">Register</Link>
-                </>
+                <Link href="/login" onClick={() => setIsOpen(false)} className="block py-2 text-sm font-medium text-gray-700">Login</Link>
               )}
               <Link href="/book" onClick={() => setIsOpen(false)} className="block text-center bg-[#1a2744] hover:bg-[#243556] text-white font-semibold py-2.5 rounded-lg text-sm mt-2">
                 Check Availability

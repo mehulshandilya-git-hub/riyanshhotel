@@ -15,13 +15,14 @@ export default function LocationSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-          <div className="bg-[#1a2744] rounded-2xl overflow-hidden aspect-[16/10] flex items-center justify-center relative">
-            <div className="text-center text-gray-400 px-8">
-              <svg className="w-16 h-16 mx-auto mb-4 text-[#c9a96e] opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+          <div className="bg-gradient-to-br from-[#1a2744] to-[#243556] rounded-2xl overflow-hidden aspect-[16/10] flex items-center justify-center">
+            <div className="text-center text-gray-300 px-8">
+              <svg className="w-16 h-16 mx-auto mb-4 text-[#c9a96e] opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <p className="text-sm font-medium">Map Placeholder</p>
-              <p className="text-xs opacity-60 mt-1">Hansdiha, Dumka Road, Jharkhand</p>
+              <p className="text-sm font-medium">{HOTEL_INFO.name}</p>
+              <p className="text-xs opacity-60 mt-1">Hansdiha · Dumka Road, Jharkhand</p>
             </div>
           </div>
 

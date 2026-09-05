@@ -19,11 +19,10 @@ export default function FeaturedRooms() {
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <p className="text-[#c9a96e] font-medium tracking-[0.25em] uppercase text-xs mb-3">Our Rooms</p>
           <h2 className="text-3xl md:text-4xl font-bold text-[#1a2744] mb-4 leading-tight">
-            Traveling with family or a group?
+            Rooms for families and groups
           </h2>
           <p className="text-gray-600 leading-relaxed">
-            We can connect multiple rooms for families and small groups. Just
-            ask us when you book — we will do our best to keep you together.
+            AC and Non-AC rooms in every budget. Traveling together? We will do our best to keep your rooms close.
           </p>
         </div>
 
@@ -47,25 +46,11 @@ export default function FeaturedRooms() {
               </div>
               <div className="p-6">
                 <h3 className="text-lg font-bold text-[#1a2744] mb-1">{room.name}</h3>
-                <p className="text-2xl font-bold text-[#c9a96e] mb-4">
-                  {formatPrice(room.price)}
-                  <span className="text-sm font-normal text-gray-400"> / night</span>
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {room.amenities.slice(0, 3).map((amenity) => (
-                    <span
-                      key={amenity}
-                      className="text-xs bg-white text-gray-600 px-2.5 py-1 rounded-full border border-gray-100"
-                    >
-                      {amenity}
-                    </span>
-                  ))}
-                  {room.amenities.length > 3 && (
-                    <span className="text-xs text-gray-400 px-2.5 py-1">
-                      +{room.amenities.length - 3} more
-                    </span>
-                  )}
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-2xl font-bold text-[#c9a96e]">{formatPrice(room.price)}</span>
+                  <span className="text-sm text-gray-400">/ night</span>
                 </div>
+                <p className="text-gray-500 text-sm leading-relaxed mb-5 line-clamp-2">{room.description}</p>
                 <Link
                   href={`/book?roomType=${room.id}&guests=2&rooms=1`}
                   className="w-full inline-flex items-center justify-center gap-2 bg-[#1a2744] hover:bg-[#243556] text-white font-semibold rounded-lg px-4 py-2.5 transition-colors text-sm"
