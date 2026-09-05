@@ -66,7 +66,7 @@ export const bookingService = {
       total,
       paymentMethod: data.paymentMethod,
       paymentStatus: data.paymentMethod === 'cash' ? 'pay_at_hotel' : 'pending',
-      bookingStatus: 'confirmed',
+      bookingStatus: 'pending',
       specialRequests: data.specialRequests,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),

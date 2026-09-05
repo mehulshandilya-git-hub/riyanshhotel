@@ -45,7 +45,7 @@ function ConfirmationContent() {
   const whatsappUrl = booking
     ? getWhatsAppUrl(
         HOTEL_PHONE,
-        `Hello! I have a confirmed booking (ID: ${booking.bookingId}). I would like to confirm my check-in. Guest: ${booking.guestName}, Check-in: ${booking.checkIn}, Check-out: ${booking.checkOut}.`
+        `Hello Hotel Riyansh, I just sent a booking request for: ${booking.roomName}. Guest: ${booking.guestName}, Check-in: ${booking.checkIn}, Check-out: ${booking.checkOut}, Guests: ${booking.numberOfGuests}, Rooms: ${booking.numberOfRooms}, Booking ID: ${booking.bookingId}. Please confirm my booking.`
       )
     : '';
 
@@ -63,21 +63,6 @@ function ConfirmationContent() {
         return 'bg-blue-100 text-blue-700';
       case 'checked_out':
         return 'bg-gray-100 text-gray-700';
-      default:
-        return 'bg-gray-100 text-gray-600';
-    }
-  };
-
-  const paymentColor = (status: string) => {
-    switch (status?.toLowerCase()) {
-      case 'paid':
-        return 'bg-green-100 text-green-700';
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-700';
-      case 'pay_at_hotel':
-        return 'bg-blue-100 text-blue-700';
-      case 'failed':
-        return 'bg-red-100 text-red-700';
       default:
         return 'bg-gray-100 text-gray-600';
     }
@@ -117,8 +102,8 @@ function ConfirmationContent() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h1 className="text-3xl font-bold text-[#1a2744]">BOOKING CONFIRMED</h1>
-                <p className="text-gray-500 mt-2">Your reservation has been successfully created.</p>
+                <h1 className="text-3xl font-bold text-[#1a2744]">BOOKING REQUEST SENT</h1>
+                <p className="text-gray-500 mt-2">Your booking details have been shared with Hotel Riyansh on WhatsApp.</p>
                 <p className="text-sm text-gray-400 mt-1">Booking ID: <span className="font-mono font-semibold text-[#1a2744]">{booking.bookingId}</span></p>
               </div>
 
@@ -171,20 +156,14 @@ function ConfirmationContent() {
                     <span className="text-gray-400">Total</span>
                     <span className="font-bold text-[#c9a96e] text-lg">{formatPrice(booking.total)}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400">Payment Method</span>
-                    <span className="font-semibold text-[#1a2744] uppercase">{booking.paymentMethod?.replace('_', ' ')}</span>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Payment</span>
+                    <span className="font-semibold text-[#1a2744]">Pay at Hotel</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-400">Booking Status</span>
                     <span className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColor(booking.bookingStatus)}`}>
                       {booking.bookingStatus.replace('_', ' ').toUpperCase()}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400">Payment Status</span>
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${paymentColor(booking.paymentStatus)}`}>
-                      {booking.paymentStatus.replace('_', ' ').toUpperCase()}
                     </span>
                   </div>
                 </div>
