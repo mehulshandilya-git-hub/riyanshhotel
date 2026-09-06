@@ -19,15 +19,17 @@ export default function RestaurantSection() {
             </Link>
           </div>
 
-          <div className="relative bg-gradient-to-br from-[#211b13] via-[#17140f] to-[#0d0b08] rounded-3xl aspect-[4/5] flex items-center justify-center border border-[#221d14] overflow-hidden">
-            <div className="absolute inset-0 opacity-[0.14] bg-[radial-gradient(circle_at_70%_20%,#c9a96e,transparent_55%)]" />
-            <div className="relative text-center px-10">
-              <svg className="w-20 h-20 mx-auto mb-6 text-[#c9a96e] opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.25} d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z" />
-              </svg>
-              <p className="font-display text-2xl md:text-3xl text-[#f2ecdf]">The Restaurant</p>
-              <div className="rule-gold w-16 mx-auto mt-4" />
-              <p className="text-sm text-[#8f8672] leading-relaxed mt-4">
+          <div className="relative bg-[#17140f] rounded-3xl aspect-[4/5] border border-[#221d14] overflow-hidden">
+            <img
+              src="/images/restaurant.jpg"
+              alt="The Restaurant at Hotel Riyansh"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0907]/70 via-transparent to-transparent" />
+            <div className="relative h-full flex flex-col items-center justify-center text-center px-10">
+              <p className="font-display text-4xl md:text-5xl text-[#f2ecdf] italic">The Restaurant</p>
+              <div className="rule-gold w-16 mt-5" />
+              <p className="text-sm text-[#c6bda7] leading-relaxed mt-4">
                 Breakfast · Lunch · Dinner
                 <br />
                 Room dining available
