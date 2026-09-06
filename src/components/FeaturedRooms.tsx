@@ -35,11 +35,15 @@ export default function FeaturedRooms() {
               key={room.id}
               className="card group bg-[#17140f] flex flex-col"
             >
-              <div className="relative bg-gradient-to-br from-[#211b13] via-[#1a1711] to-[#0d0b08] aspect-[16/10] flex items-center justify-center border-b border-[#221d14]">
-                <div className="absolute inset-0 opacity-[0.18] bg-[radial-gradient(circle_at_30%_30%,#c9a96e,transparent_60%)]" />
-                <svg className="w-14 h-14 text-[#c9a96e] opacity-60 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.25} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4" />
-                </svg>
+              <div className="relative bg-[#17140f] aspect-[16/10] overflow-hidden border-b border-[#221d14]">
+                {room.images?.[0] && (
+                  <img
+                    src={room.images[0]}
+                    alt={room.name}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0907]/60 via-transparent to-transparent" />
                 <span
                   className={`absolute top-4 left-4 text-[11px] font-semibold tracking-wide px-3 py-1 rounded-full uppercase ${
                     room.category === 'ac'

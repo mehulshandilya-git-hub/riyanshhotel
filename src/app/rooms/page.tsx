@@ -93,10 +93,15 @@ export default function RoomsPage() {
                   key={room.id}
                   className="bg-[#14120e] border border-[#221d14] rounded-2xl overflow-hidden hover:border-[#3a3427] hover:shadow-gold transition-all flex flex-col"
                 >
-                  <div className="relative bg-gradient-to-br from-[#211b13] via-[#17140f] to-[#0d0b08] aspect-[16/10] flex items-center justify-center">
-                    <svg className="w-16 h-16 text-[#c9a96e] opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
+                  <div className="relative bg-[#17140f] aspect-[16/10] overflow-hidden">
+                    {room.images?.[0] && (
+                      <img
+                        src={room.images[0]}
+                        alt={room.name}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0907]/60 via-transparent to-transparent" />
                     <span
                       className={`absolute top-4 left-4 text-xs font-bold px-3 py-1 rounded-full ${
                         room.category === 'ac' ? 'bg-gradient-to-br from-[#dcbd85] to-[#c9a96e] text-[#120f0a]' : 'bg-[#f2ecdf] text-[#0a0907]'
