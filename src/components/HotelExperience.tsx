@@ -23,14 +23,16 @@ export default function HotelExperience() {
     <section className="py-20 md:py-28 bg-[#100e0b]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-          <div className="relative bg-gradient-to-br from-[#211b13] via-[#17140f] to-[#0d0b08] rounded-3xl aspect-[4/5] flex items-center justify-center border border-[#221d14] overflow-hidden">
-            <div className="absolute inset-0 opacity-[0.14] bg-[radial-gradient(circle_at_30%_30%,#c9a96e,transparent_55%)]" />
-            <div className="relative text-center px-10">
-              <svg className="w-20 h-20 mx-auto mb-6 text-[#c9a96e] opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.25} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-              </svg>
-              <p className="font-display text-2xl md:text-3xl text-[#f2ecdf]">Stay. Dine. Relax.</p>
-              <div className="rule-gold w-16 mx-auto mt-4" />
+          <div className="relative bg-[#17140f] rounded-3xl aspect-[4/5] border border-[#221d14] overflow-hidden">
+            <img
+              src="/images/stay-dine-relax.jpg"
+              alt="Stay. Dine. Relax. at Hotel Riyansh"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0907]/70 via-transparent to-transparent" />
+            <div className="relative h-full flex flex-col items-center justify-center text-center px-10">
+              <p className="font-display text-6xl md:text-7xl text-[#f2ecdf] italic">Stay. Dine. Relax.</p>
+              <div className="rule-gold w-16 mt-5" />
             </div>
           </div>
 
