@@ -76,7 +76,7 @@ export default function Footer() {
             <address className="not-italic text-sm text-[#8f8672] space-y-3">
               <p>{HOTEL_INFO.address}</p>
               <p className="text-[#c6bda7]">
-                <span className="text-[#a58659]">Landmark:</span> Opposite Austria Petrol Pump
+                <span className="text-[#a58659]">Landmark:</span> Opposite Ortara Petrol Pump
               </p>
               <p className="pt-1 border-t border-[#1c1811]">
                 <span className="text-[#c6bda7]">Check-in:</span> {HOTEL_INFO.checkInTime}

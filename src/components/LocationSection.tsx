@@ -32,7 +32,7 @@ export default function LocationSection() {
               {HOTEL_INFO.address}
             </p>
             <p className="text-[#c6bda7] mb-8">
-              <span className="text-[#a58659] font-medium">Landmark:</span> Opposite Austria Petrol Pump
+              <span className="text-[#a58659] font-medium">Landmark:</span> Opposite Ortara Petrol Pump
             </p>
             <Link href="/contact" className="btn-primary w-full justify-center">
               Get Directions

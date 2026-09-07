@@ -80,7 +80,7 @@ export default function AboutPage() {
               <p className="text-[#8f8672] leading-relaxed mb-4">
                 Established in <strong className="text-[#dcbd85]">{HOTEL_INFO.established}</strong>, Hotel Riyansh
                 is a budget and mid-range hotel located on <strong className="text-[#dcbd85]">Dumka Road,
-                opposite Austria Petrol Pump, Hansdiha - 814145</strong>, Jharkhand.
+                opposite Ortara Petrol Pump, Hansdiha - 814145</strong>, Jharkhand.
               </p>
               <p className="text-[#8f8672] leading-relaxed mb-4">
                 We are a family-friendly hotel dedicated to providing comfortable and affordable stays for

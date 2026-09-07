@@ -93,7 +93,7 @@ export interface HotelInfo {
 export const HOTEL_INFO: HotelInfo = {
   name: 'Hotel Riyansh',
   tagline: 'Comfortable stays in Hansdiha',
-  address: 'Austria Petrol Pump ke saamne, Dumka Road, Hansdiha – 814145, Jharkhand, India',
+  address: 'Ortara Petrol Pump ke saamne, Dumka Road, Hansdiha – 814145, Jharkhand, India',
   phone: '+916200760138',
   whatsapp: '+916200760138',
   established: 2025,
